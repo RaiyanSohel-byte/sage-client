@@ -22,18 +22,6 @@ const LessonCard = ({ lesson, user }) => {
 
   const isLocked = isLessonPremium && !isUserPremium;
 
-  const axiosInstance = useAxios();
-
-  const handlePayment = () => {
-    const paymentInfo = {
-      email: user.email,
-    };
-    axiosInstance.post("/create-checkout-session", paymentInfo).then((res) => {
-      console.log(res.data);
-      window.location.href = res.data.url;
-    });
-  };
-
   return (
     <div
       className={`relative w-full max-w-md mx-auto bg-white rounded-[2rem] overflow-hidden border transition-all duration-300 h-[500px] lg:h-[420px] group ${
@@ -68,13 +56,14 @@ const LessonCard = ({ lesson, user }) => {
             This lesson is exclusive for premium members. Upgrade to unlock.
           </p>
 
-          <button
-            onClick={handlePayment}
-            className="px-6 cursor-pointer py-3 rounded-xl text-sm font-bold uppercase shadow-lg"
-            style={{ backgroundColor: COLORS.gold, color: COLORS.darkGreen }}
-          >
-            Upgrade to View
-          </button>
+          <Link to="/payment">
+            <button
+              className="px-6 cursor-pointer py-3 rounded-xl text-sm font-bold uppercase shadow-lg"
+              style={{ backgroundColor: COLORS.gold, color: COLORS.darkGreen }}
+            >
+              Upgrade to View
+            </button>
+          </Link>
         </div>
       )}
 

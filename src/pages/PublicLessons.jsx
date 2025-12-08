@@ -259,6 +259,7 @@ const PublicLessons = () => {
         )}
         {[...Array(totalPages).keys()].map((i) => (
           <button
+            key={i}
             onClick={() => setCurrentPage(i)}
             className={`${
               i === currentPage
