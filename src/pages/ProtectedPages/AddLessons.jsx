@@ -16,6 +16,7 @@ import { Link } from "react-router";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import Lottie from "lottie-react";
+import useTheme from "../../hooks/useTheme";
 
 const AddLessons = () => {
   const axiosInstance = useAxios();
@@ -24,13 +25,7 @@ const AddLessons = () => {
 
   const { register, handleSubmit, setValue, watch, reset } = useForm();
 
-  const THEME = {
-    dark: "#1A2F23",
-    primary: "#4F6F52",
-    light: "#F3F5F0",
-    accent: "#D4C5A8",
-    white: "#FFFFFF",
-  };
+  const { COLORS } = useTheme();
 
   const categories = [
     "Personal Growth",
@@ -114,15 +109,15 @@ const AddLessons = () => {
   };
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col items-center justify-center py-26 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="min-h-screen w-full relative flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* --- BACKGROUND --- */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundColor: THEME.light,
+          backgroundColor: COLORS.light,
           backgroundImage: `
-            radial-gradient(circle at 10% 20%, ${THEME.accent}30 0%, transparent 20%),
-            radial-gradient(circle at 90% 80%, ${THEME.primary}20 0%, transparent 25%)
+            radial-gradient(circle at 10% 20%, ${COLORS.accent}30 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, ${COLORS.primary}20 0%, transparent 25%)
           `,
         }}
       />
@@ -397,7 +392,7 @@ const AddLessons = () => {
                     <span className="text-sm text-gray-700">
                       Premium Content{" "}
                       {!isPremium && (
-                        <Link className="underline text-blue-500">
+                        <Link to="/payment" className="underline text-blue-500">
                           (Be a Premium Member to access this)
                         </Link>
                       )}

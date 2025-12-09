@@ -22,6 +22,7 @@ import ShareButton from "../components/Shared/ShareButton";
 import Swal from "sweetalert2";
 import usePremium from "../hooks/usePremium";
 import LessonCard from "../components/Shared/LessonCard";
+import useTheme from "../hooks/useTheme";
 
 const LessonDetails = () => {
   const { id } = useParams();
@@ -29,13 +30,7 @@ const LessonDetails = () => {
   const isPremium = usePremium();
   const axiosInstance = useAxios();
 
-  const THEME = {
-    dark: "#1A2F23",
-    primary: "#4F6F52",
-    light: "#F3F5F0",
-    accent: "#D4C5A8",
-    white: "#FFFFFF",
-  };
+  const COLORS = useTheme();
 
   const [lesson, setLesson] = useState(null);
   const [lessons, setLessons] = useState([]);
@@ -110,6 +105,7 @@ const LessonDetails = () => {
       posterEmail: lesson.email,
       posterImage: lesson.authorImage,
       postImage: lesson.image,
+      postTitle: lesson.title,
     };
     axiosInstance.post("/likes", likedInfo).then((res) => {
       if (res.data.result.insertedId) {
@@ -146,6 +142,7 @@ const LessonDetails = () => {
       posterEmail: lesson.email,
       posterImage: lesson.authorImage,
       postImage: lesson.image,
+      postTitle: lesson.title,
     };
     axiosInstance.post("/favorites", favoriteInfo).then((res) => {
       if (res.data.result.insertedId) {
@@ -288,7 +285,7 @@ const LessonDetails = () => {
   return (
     <div
       className="min-h-screen w-full py-20 relative  selection:bg-[#D4C5A8] selection:text-[#1A2F23]"
-      style={{ backgroundColor: THEME.light }}
+      style={{ backgroundColor: COLORS.light }}
     >
       {/* BACKGROUND TEXTURE */}
       <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none"></div>

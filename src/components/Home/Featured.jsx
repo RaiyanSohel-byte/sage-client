@@ -29,7 +29,6 @@ const Featured = () => {
   }, [axiosInstance]);
   return (
     <div>
-      {/* --- HEADER: Context and Thesis --- */}
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
         <span
           className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest"

@@ -29,7 +29,7 @@ const BenefitCard = ({ title, description, Icon }) => {
 
       <p className="text-gray-600 text-base flex-grow">{description}</p>
 
-      {/* Read More Link (Subtle interaction) */}
+      {/* Read More Link */}
       <Link
         to="/public-lessons"
         className="flex items-center text-sm font-medium pt-2 transition-all group-hover:translate-x-1"
@@ -102,7 +102,7 @@ const LearningFromLifeSection = () => {
           </p>
         </div>
 
-        {/* --- CARDS: The Four Benefits Grid --- */}
+        {/* --- CARDS: Four Benefits Grid --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
             <BenefitCard

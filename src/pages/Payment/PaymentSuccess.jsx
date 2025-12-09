@@ -3,6 +3,7 @@ import useAxios from "../../hooks/useAxios";
 import { Link, useSearchParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { BookOpen, Check, Home, Sparkles } from "lucide-react";
+import useTheme from "../../hooks/useTheme";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -28,18 +29,12 @@ const PaymentSuccess = () => {
     }
   }, [session_id, user, axiosInstance, currUser]);
 
-  const THEME = {
-    dark: "#1A2F23", // Dark Forest
-    primary: "#4F6F52", // Sage (Used for success state)
-    light: "#F3F5F0", // Mist
-    accent: "#D4C5A8", // Gold
-    white: "#FFFFFF",
-  };
+  const { COLORS } = useTheme();
 
   return (
     <div
       className="min-h-screen w-full relative flex items-center justify-center font-sans p-4"
-      style={{ backgroundColor: THEME.light }}
+      style={{ backgroundColor: COLORS.light }}
     >
       {/* --- BACKGROUND TEXTURE --- */}
       <div
@@ -49,40 +44,38 @@ const PaymentSuccess = () => {
         }}
       />
 
-      {/* Ambient Gradient (Success/Gold tint) */}
       <div
         className="absolute inset-0 z-0 opacity-30"
         style={{
-          background: `radial-gradient(circle at 50% 50%, ${THEME.primary}30 0%, transparent 60%)`,
+          background: `radial-gradient(circle at 50% 50%, ${COLORS.primary}30 0%, transparent 60%)`,
         }}
       />
 
       {/* --- MAIN CARD --- */}
       <div className="relative my-20 z-10 w-full max-w-lg bg-white rounded-[2.5rem] shadow-2xl p-10 md:p-12 text-center animate-fade-in-up border border-white/50">
-        {/* Icon Circle (Success Green) */}
+        {/* Icon Circle  */}
         <div
           className="w-24 h-24 mx-auto mb-8 rounded-full flex items-center justify-center relative"
-          style={{ backgroundColor: `${THEME.primary}15` }} // 15% opacity sage green
+          style={{ backgroundColor: `${COLORS.primary}15` }} // 15% opacity sage green
         >
-          {/* Pulsing ring effect */}
           <div
             className="absolute inset-0 rounded-full animate-ping opacity-20"
-            style={{ backgroundColor: THEME.primary }}
+            style={{ backgroundColor: COLORS.primary }}
           ></div>
 
-          <Check size={40} style={{ color: THEME.primary }} strokeWidth={4} />
+          <Check size={40} style={{ color: COLORS.primary }} strokeWidth={4} />
         </div>
 
         {/* Headlines */}
         <h1
           className="text-3xl md:text-4xl font-serif font-bold mb-2"
-          style={{ color: THEME.dark }}
+          style={{ color: COLORS.dark }}
         >
           Wisdom Unlocked!
         </h1>
         <h2
           className="text-xl font-medium mb-4"
-          style={{ color: THEME.primary }}
+          style={{ color: COLORS.primary }}
         >
           Payment Successful
         </h2>
@@ -96,19 +89,19 @@ const PaymentSuccess = () => {
         <div
           className="border rounded-2xl p-5 mb-10 flex items-start gap-4 text-left"
           style={{
-            backgroundColor: `${THEME.accent}10`,
-            borderColor: `${THEME.accent}30`,
+            backgroundColor: `${COLORS.accent}10`,
+            borderColor: `${COLORS.accent}30`,
           }}
         >
           <Sparkles
             size={24}
             className="flex-shrink-0 mt-1"
-            style={{ color: THEME.accent }}
+            style={{ color: COLORS.accent }}
           />
           <div>
             <h3
               className="font-bold text-sm uppercase tracking-wide mb-1"
-              style={{ color: THEME.dark }}
+              style={{ color: COLORS.dark }}
             >
               Premium Membership Active
             </h3>
@@ -124,7 +117,7 @@ const PaymentSuccess = () => {
           <Link to="/public-lessons">
             <button
               className="w-full py-4 rounded-xl font-bold text-white shadow-lg transition-transform hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2"
-              style={{ backgroundColor: THEME.dark }}
+              style={{ backgroundColor: COLORS.dark }}
             >
               <BookOpen size={20} />
               Dive Into Content
@@ -133,7 +126,7 @@ const PaymentSuccess = () => {
 
           <button
             className="w-full py-4 rounded-xl font-medium transition-colors hover:bg-gray-50 flex items-center justify-center gap-2"
-            style={{ color: THEME.primary }}
+            style={{ color: COLORS.primary }}
           >
             <Home size={20} />
             Return to Dashboard

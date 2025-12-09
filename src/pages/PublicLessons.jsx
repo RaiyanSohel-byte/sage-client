@@ -6,15 +6,10 @@ import Loader from "../components/Shared/Loader";
 import LessonCard from "../components/Shared/LessonCard";
 import useAxios from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
+import useTheme from "../hooks/useTheme";
 
 const PublicLessons = () => {
-  const THEME = {
-    dark: "#1A2F23",
-    primary: "#4F6F52",
-    light: "#F3F5F0",
-    accent: "#D4C5A8",
-    white: "#FFFFFF",
-  };
+  const { COLORS } = useTheme();
 
   const [lessons, setLessons] = useState([]);
   const [totalLessons, setTotalLessons] = useState(0);
@@ -82,15 +77,15 @@ const PublicLessons = () => {
   return (
     <div
       className="min-h-screen w-full relative py-12"
-      style={{ backgroundColor: THEME.light }}
+      style={{ backgroundColor: COLORS.light }}
     >
       {/* Background */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 15% 10%, ${THEME.accent}20 0%, transparent 25%),
-            radial-gradient(circle at 85% 90%, ${THEME.primary}15 0%, transparent 30%)
+            radial-gradient(circle at 15% 10%, ${COLORS.accent}20 0%, transparent 25%),
+            radial-gradient(circle at 85% 90%, ${COLORS.primary}15 0%, transparent 30%)
           `,
         }}
       />
@@ -104,11 +99,11 @@ const PublicLessons = () => {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <div className="inline-flex items-center justify-center p-3 rounded-full bg-white shadow-md mb-4">
-            <BookOpen size={24} style={{ color: THEME.primary }} />
+            <BookOpen size={24} style={{ color: COLORS.primary }} />
           </div>
           <h1
             className="text-4xl md:text-6xl font-serif font-bold tracking-tight"
-            style={{ color: THEME.dark }}
+            style={{ color: COLORS.dark }}
           >
             The Collective Wisdom
           </h1>
@@ -144,7 +139,7 @@ const PublicLessons = () => {
               <button
                 type="submit"
                 className=" md:w-auto px-8 py-2 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
-                style={{ backgroundColor: THEME.dark }}
+                style={{ backgroundColor: COLORS.dark }}
               >
                 Search
               </button>
@@ -193,7 +188,7 @@ const PublicLessons = () => {
               <button
                 onClick={handleClear}
                 className=" md:w-auto px-8 py-2 rounded-xl font-bold text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer flex items-center gap-1"
-                style={{ backgroundColor: THEME.dark }}
+                style={{ backgroundColor: COLORS.dark }}
               >
                 <MdOutlineCancel /> Clear
               </button>

@@ -172,7 +172,7 @@ const Navbar = () => {
       </NavLink>
       {user && (
         <NavLink
-          to="/add-lessons"
+          to="/dashboard/add-lessons"
           className={({ isActive }) =>
             `text-sm font-medium text-[#2C3E2E]/80 hover:text-[#4F6F52] relative pb-1 transition-colors ${
               isActive
@@ -260,7 +260,7 @@ const Navbar = () => {
 
           {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center gap-4">
-            {/* Show mini avatar on mobile if logged in, optional */}
+            {/* Show mini avatar on mobile if logged in*/}
             {user && (
               <div className="w-8 h-8 rounded-full overflow-hidden border border-[#D4DEC9]">
                 <img
@@ -325,7 +325,7 @@ const Navbar = () => {
           </NavLink>
           {user && (
             <NavLink
-              to="/add-lessons"
+              to="/dashboard/add-lessons"
               onClick={() => setIsMobileMenuOpen(false)}
               className="block text-lg font-medium py-2 border-b border-dashed border-[#D4DEC9]/50 text-[#2C3E2E]"
             >

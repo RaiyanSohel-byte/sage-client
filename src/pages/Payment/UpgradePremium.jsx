@@ -14,15 +14,10 @@ import {
 } from "lucide-react";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import useTheme from "../../hooks/useTheme";
 
 const UpgradePremium = () => {
-  const THEME = {
-    dark: "#1A2F23", // Dark Forest
-    primary: "#4F6F52", // Sage
-    light: "#F3F5F0", // Mist
-    accent: "#D4C5A8", // Gold
-    white: "#FFFFFF",
-  };
+  const { COLORS } = useTheme();
 
   const benefits = [
     {
@@ -98,7 +93,7 @@ const UpgradePremium = () => {
   return (
     <div
       className="min-h-screen w-full relative font-sans overflow-x-hidden selection:bg-[#D4C5A8] selection:text-[#1A2F23]"
-      style={{ backgroundColor: THEME.light }}
+      style={{ backgroundColor: { COLORS }.light }}
     >
       <div className="absolute inset-0 z-0 pointer-events-none opacity-60 fixed" />
 
@@ -121,11 +116,9 @@ const UpgradePremium = () => {
           </p>
         </div>
 
-        {/* 2. THE BENTO GRID OFFERING */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-24">
           {/* LARGE LEFT CARD: The Pitch & Price */}
           <div className="lg:col-span-7 bg-white rounded-[2.5rem] p-10 md:p-14 flex flex-col justify-between relative overflow-hidden group animate-fade-in-up shadow-2xl shadow-[#1A2F23]/5 border border-white">
-            {/* Subtle Texture Overlay */}
             <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] mix-blend-multiply pointer-events-none"></div>
 
             <div className="relative z-10">

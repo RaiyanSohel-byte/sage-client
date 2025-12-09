@@ -2,19 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Crown, Star, Feather, Trophy, Medal, Gem } from "lucide-react";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import useTheme from "../../hooks/useTheme";
 
 const TopContributors = () => {
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosInstance = useAxios();
   const { user } = useAuth();
-  const THEME = {
-    dark: "#1A2F23", // Dark Forest
-    primary: "#4F6F52", // Sage
-    light: "#F3F5F0", // Mist
-    accent: "#D4C5A8", // Gold
-    white: "#FFFFFF",
-  };
+  const COLORS = useTheme();
 
   useEffect(() => {
     const fetchContributors = async () => {
@@ -93,7 +88,7 @@ const TopContributors = () => {
     return (
       <div
         className="w-full py-32 flex justify-center items-center"
-        style={{ backgroundColor: THEME.light }}
+        style={{ backgroundColor: COLORS.light }}
       >
         <div className="flex flex-col items-center gap-4 animate-pulse opacity-50">
           <Feather size={48} className="text-[#4F6F52]" />
@@ -133,12 +128,12 @@ const TopContributors = () => {
                 key={contributor.email}
                 className={`relative rounded-[2rem] overflow-hidden flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-3 group ${styles.cardClasses}`}
               >
-                {/* 1. Header Background (Curved) */}
+                {/* 1. Header Background  */}
                 <div
                   className={`absolute top-0 w-full h-32 ${styles.headerBg} rounded-b-[50%] scale-150 transition-transform duration-700 group-hover:scale-[1.6]`}
                 ></div>
 
-                {/* 2. Premium Badge (Jewelry Style) */}
+                {/* 2. Premium Badge */}
                 {contributor.isPremium === "true" && (
                   <div className="absolute top-4 right-4 z-30 animate-fade-in tooltip-container cursor-help">
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-br from-[#D4C5A8] via-[#FDFBF7] to-[#C3B08D] shadow-lg border border-white/40">
