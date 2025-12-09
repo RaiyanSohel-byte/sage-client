@@ -17,6 +17,8 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import Lottie from "lottie-react";
 import useTheme from "../../hooks/useTheme";
+import { FaLock } from "react-icons/fa";
+import { GiWorld } from "react-icons/gi";
 
 const AddLessons = () => {
   const axiosInstance = useAxios();
@@ -361,7 +363,7 @@ const AddLessons = () => {
                 </div>
 
                 {/* Visibility */}
-                <div>
+                {/* <div>
                   <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 ml-1">
                     Visibility
                   </label>
@@ -375,29 +377,54 @@ const AddLessons = () => {
                       Private — Only you can see{" "}
                     </span>
                   </label>
+                </div> */}
+                {/* Visibility */}
+                <div>
+                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 ml-1">
+                    Visibility
+                  </label>
+
+                  <select
+                    {...register("visibility")}
+                    defaultValue="public"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setValue("isPrivate", value === "private");
+                    }}
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#4F6F52] outline-none cursor-pointer"
+                  >
+                    <option value="public">Public — Visible to everyone</option>
+                    <option value="private">Private — Only you can see</option>
+                  </select>
                 </div>
+
                 {/* Access Level */}
                 <div>
                   <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 ml-1">
                     Access Level
                   </label>
-                  <label className="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      {...register("isPremiumAccess")}
-                      className="w-5 h-5 accent-[#4F6F52]"
-                      disabled={!isPremium}
-                    />
 
-                    <span className="text-sm text-gray-700">
-                      Premium Content{" "}
-                      {!isPremium && (
-                        <Link to="/payment" className="underline text-blue-500">
-                          (Be a Premium Member to access this)
-                        </Link>
-                      )}
-                    </span>
-                  </label>
+                  <select
+                    {...register("accessLevel")}
+                    defaultValue={isPremium ? "premium" : "free"}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setValue("isPremiumAccess", value === "premium");
+                    }}
+                    className={`w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#4F6F52] outline-none cursor-pointer`}
+                    disabled={!isPremium}
+                  >
+                    <option value="free">Free — Visible to all users</option>
+                    <option value="premium">Premium — Members only</option>
+                  </select>
+
+                  {!isPremium && (
+                    <p className="mt-1 text-xs text-blue-500">
+                      <Link to="/payment" className="underline">
+                        Become a Premium Member to access this
+                      </Link>
+                    </p>
+                  )}
                 </div>
 
                 {/* Submit */}

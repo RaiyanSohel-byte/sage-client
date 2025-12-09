@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -35,20 +36,38 @@ const MyFavorites = () => {
   }, [user, axiosInstance]);
 
   const handleRemove = async (id) => {
-    const previousFavorites = [...favorites];
-    setFavorites(favorites.filter((fav) => fav._id !== id));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1a2f23",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const previousFavorites = [...favorites];
+        setFavorites(favorites.filter((fav) => fav._id !== id));
 
-    try {
-      await axiosInstance.delete(`/favorites/${id}`);
-    } catch (error) {
-      console.error("Failed to delete", error);
+        try {
+          await axiosInstance.delete(`/favorites/${id}`);
+        } catch (error) {
+          console.error("Failed to delete", error);
 
-      setFavorites(previousFavorites);
-    }
+          setFavorites(previousFavorites);
+        }
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#1a2f23",
+        });
+      }
+    });
   };
 
   return (
-    <div className="w-full font-sans min-h-[80vh]">
+    <div className="w-full font-sans min-h-[80vh] p-8">
       {/* 1. HEADER */}
       <div className="mb-10 animate-fade-in-up">
         <div className="flex items-center gap-3 mb-2">

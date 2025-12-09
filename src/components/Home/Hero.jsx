@@ -174,7 +174,7 @@ const Hero = () => {
                         to={
                           slide.cta === "Explore Library"
                             ? "/public-lessons"
-                            : "/add-lesson"
+                            : "/dashboard/add-lessons"
                         }
                         className="btn bg-[#4F6F52] hover:bg-[#3A523C] text-white border-none px-8 h-12 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
                       >

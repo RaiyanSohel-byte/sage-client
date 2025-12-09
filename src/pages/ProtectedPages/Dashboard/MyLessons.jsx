@@ -16,6 +16,7 @@ import {
 import { Link } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const MyLessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -42,6 +43,32 @@ const MyLessons = () => {
 
     fetchMyLessons();
   }, [user, axiosInstance]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1a2f23",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, sign out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance.delete(`/lessons/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            setLessons(res.data);
+            Swal.fire({
+              title: "Yes, Delete!",
+              text: "Deleted.",
+              icon: "success",
+              confirmButtonColor: "#1a2f23",
+            });
+          }
+        });
+      }
+    });
+  };
 
   const StatusBadge = ({ isPrivate }) => (
     <div
@@ -218,6 +245,7 @@ const MyLessons = () => {
                           </button>
                           {/* Delete */}
                           <button
+                            onClick={() => handleDelete(lesson._id)}
                             className="p-2 rounded-full hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                             title="Delete Lesson"
                           >
