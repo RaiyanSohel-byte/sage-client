@@ -95,7 +95,7 @@ const PublicLessons = () => {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* HERO SECTION */}
         <motion.div
           className="text-center mb-16 space-y-4"
@@ -120,7 +120,7 @@ const PublicLessons = () => {
 
         {/* SEARCH & FILTER BAR */}
         <motion.div
-          className="max-w-7xl mx-auto mb-8"
+          className="max-w-[1440px] mx-auto mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -232,10 +232,7 @@ const PublicLessons = () => {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <LessonCard
-                  lesson={lesson}
-                  user={currentUser || { isPremium: false }}
-                />
+                <LessonCard lesson={lesson} />
               </motion.div>
             ))}
           </motion.div>

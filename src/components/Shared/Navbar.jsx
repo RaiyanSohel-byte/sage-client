@@ -8,12 +8,15 @@ import {
   Settings,
   LayoutDashboard,
   ChevronDown,
+  Gem,
+  Lock,
 } from "lucide-react";
 import { NavLink, Link } from "react-router";
 import Logo from "./Logo";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import usePremium from "../../hooks/usePremium";
 
 const UserDropdown = ({ user, handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,8 +41,8 @@ const UserDropdown = ({ user, handleLogout }) => {
       >
         <div className="relative cursor-pointer">
           <img
-            src={user.photoURL}
-            alt={user.displayName}
+            src={user?.photoURL}
+            alt={user?.displayName}
             className="w-9 h-9 rounded-full object-cover border-2 border-[#D4DEC9] group-hover:border-[#4F6F52] transition-colors"
           />
           <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
@@ -108,7 +111,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logoutUser } = useAuth();
-
+  const isPremium = usePremium();
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -215,12 +218,32 @@ const Navbar = () => {
             <div className="h-6 w-px bg-[#D4DEC9]"></div>
 
             {user ? (
-              <UserDropdown user={user} handleLogout={handleLogout} />
+              <>
+                {isPremium ? (
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-br from-[#D4C5A8] via-[#FDFBF7] to-[#C3B08D] shadow-lg border border-white/40">
+                    <Gem size={12} className="text-[#1A2F23]" />
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#1A2F23]">
+                      Premium
+                    </span>
+                  </div>
+                ) : (
+                  <Link
+                    to="/payment"
+                    className="flex items-center  w-24 gap-1.5 px-3 py-1.5 rounded-full bg-green-800 font-sans border text-white border-white/40"
+                  >
+                    <Lock />
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-center">
+                      Upgrade
+                    </span>
+                  </Link>
+                )}
+                <UserDropdown user={user} handleLogout={handleLogout} />
+              </>
             ) : (
               <>
                 <Link
                   to="/auth/login"
-                  className="btn btn-ghost btn-sm text-[#2C3E2E] hover:text-[#4F6F52] font-medium"
+                  className="btn bg-[#f3f5f0]  hover:bg-[#4F6F52] hover:text-white text-[#2C3E2E] border border-[#2C3E2E] btn-sm px-5 rounded-full hover:shadow-lg transition-all flex items-center gap-2"
                 >
                   Sign In
                 </Link>
@@ -267,7 +290,25 @@ const Navbar = () => {
           isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-6 py-6 space-y-4">
+        <div className="px-6 py-3 space-y-4">
+          {isPremium ? (
+            <div className="flex items-center w-24 gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-br from-[#D4C5A8] via-[#FDFBF7] to-[#C3B08D] border border-white/40">
+              <Gem size={12} className="text-[#1A2F23]" />
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#1A2F23]">
+                Premium
+              </span>
+            </div>
+          ) : (
+            <Link
+              to="/payment"
+              className="flex items-center w-24 gap-1.5 px-3 py-1.5 rounded-full bg-green-800 border text-white border-white/40"
+            >
+              <Lock />
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-center">
+                Upgrade
+              </span>
+            </Link>
+          )}
           <NavLink
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -311,8 +352,9 @@ const Navbar = () => {
                   />
                   <div>
                     <p className="font-bold text-[#2C3E2E] text-sm">
-                      {user.displayName}
+                      {user.displayName}{" "}
                     </p>
+
                     <p className="text-xs text-gray-500">{user.email}</p>
                   </div>
                 </div>
@@ -332,6 +374,7 @@ const Navbar = () => {
             ) : (
               // Mobile State for Guest
               <>
+                <UserDropdown user={user} handleLogout={handleLogout} />
                 <Link
                   to="/auth/login"
                   className="btn btn-outline border-[#D4DEC9] text-[#2C3E2E] hover:bg-[#F3F5F0] hover:border-[#4F6F52] w-full rounded-full"
