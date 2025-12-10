@@ -48,6 +48,7 @@ const PublicLessons = () => {
   };
   useEffect(() => {
     setLoading(true);
+    console.log(encodeURIComponent(category));
     axiosInstance
       .get(
         `/lessons?isPrivate=false&limit=${limit}&skip=${

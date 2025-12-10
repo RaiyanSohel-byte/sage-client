@@ -44,11 +44,11 @@ const LessonDetails = () => {
   const [newComment, setNewComment] = useState("");
   const [sort, setSort] = useState("");
   const [tone, setTone] = useState("");
-  const [similarLessons, setSimilarLessons] = useState();
-  const [similarLessonsByCategory, setSimilarLessonsByTone] = useState();
+  const [similarLessonsByCategory, setSimilarLessonsByCategory] = useState();
+  const [similarLessonsByTone, setSimilarLessonsByTone] = useState();
   const [comments, setComments] = useState([]);
   const reportModalRef = useRef(null);
-  console.log(sort);
+
   const handleModalOpen = () => {
     if (!user) return toast.error("You must be logged in");
     Swal.fire({
@@ -194,15 +194,19 @@ const LessonDetails = () => {
   }, [id, lesson, axiosInstance, user]);
 
   useEffect(() => {
+    if (!sort) return;
+
+    console.log(sort);
     axiosInstance
       .get(`/lessons?category=${encodeURIComponent(sort)}`)
       .then((res) => {
-        setSimilarLessons(res.data.result);
+        setSimilarLessonsByCategory(res.data.result);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, [sort, axiosInstance]);
   useEffect(() => {
+    if (!tone) return;
     axiosInstance
       .get(`/lessons?tone=${tone}`)
       .then((res) => {
@@ -545,32 +549,33 @@ const LessonDetails = () => {
           </div>
           <div>
             {/* SIMILAR LESSONS BY CATEGORY */}
-            {similarLessons && similarLessons.length > 0 && (
-              <div className="mt-16">
-                <h2 className="text-3xl font-bold text-[#1A2F23] mb-6">
-                  More From This Category
-                </h2>
+            {similarLessonsByCategory &&
+              similarLessonsByCategory.length > 0 && (
+                <div className="mt-16">
+                  <h2 className="text-3xl font-bold text-[#1A2F23] mb-6">
+                    More From This Category
+                  </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-                  {similarLessons
-                    .filter((l) => l._id !== lesson._id)
-                    .slice(0, 6)
-                    .map((item) => (
-                      <LessonCard lesson={item} />
-                    ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                    {similarLessonsByCategory
+                      .filter((l) => l._id !== lesson._id)
+                      .slice(0, 6)
+                      .map((item) => (
+                        <LessonCard lesson={item} />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {/* SIMILAR LESSONS BY TONE */}
-            {similarLessons && similarLessons.length > 0 && (
+            {similarLessonsByTone && similarLessonsByTone.length > 0 && (
               <div className="mt-20">
                 <h2 className="text-3xl font-bold text-[#1A2F23] mb-6">
                   More With This Tone
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-                  {similarLessons
+                  {similarLessonsByTone
                     .filter((l) => l._id !== lesson._id)
                     .slice(0, 6)
                     .map((lesson) => (

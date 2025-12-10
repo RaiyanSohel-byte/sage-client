@@ -290,13 +290,13 @@ const MyLessons = () => {
                             <Heart
                               size={16}
                               className={
-                                lesson.likes > 0
+                                lesson.favorites > 0
                                   ? "text-red-400 fill-red-400"
                                   : ""
                               }
                             />
                             <span className="text-sm font-bold">
-                              {lesson.likes}
+                              {lesson.favorites}
                             </span>
                           </div>
                           <div
