@@ -147,6 +147,7 @@ const LessonDetails = () => {
     axiosInstance.post("/favorites", favoriteInfo).then((res) => {
       if (res.data.result.insertedId) {
         setIsFavorite(true);
+        setFavoriteId(res.data.result.insertedId);
         axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
           setFavorites(res.data.favorites);
           toast.success("Added to favorites!");
@@ -161,6 +162,7 @@ const LessonDetails = () => {
       setIsFavorite(false);
       axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
         setFavorites(res.data.favorites);
+        setFavoriteId("");
         toast.success("Removed from favorites");
       });
     });
