@@ -143,6 +143,8 @@ const LessonDetails = () => {
       posterImage: lesson.authorImage,
       postImage: lesson.image,
       postTitle: lesson.title,
+      postCategory: lesson.category,
+      postTone: lesson.tone,
     };
     axiosInstance.post("/favorites", favoriteInfo).then((res) => {
       if (res.data.result.insertedId) {
