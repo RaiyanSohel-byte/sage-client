@@ -97,8 +97,6 @@ const UserProfile = () => {
   const handleSaveUserProfile = async () => {
     try {
       const updatedLocalData = { ...UserProfileData, ...editFormData };
-      setUserProfileData(updatedLocalData);
-      setIsEditing(false);
 
       await axiosInstance.patch(`/users/${UserProfileData._id}`, editFormData);
 
@@ -108,6 +106,8 @@ const UserProfile = () => {
       });
 
       toast.success("User profile and all references updated successfully!");
+      setUserProfileData(updatedLocalData);
+      setIsEditing(false);
     } catch (error) {
       console.error("Failed to update user profile:", error);
       setUserProfileData(UserProfileData);
