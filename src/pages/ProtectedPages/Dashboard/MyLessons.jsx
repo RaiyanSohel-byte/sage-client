@@ -352,7 +352,7 @@ const MyLessons = () => {
                               {/* Title */}
                               <div className="space-y-6">
                                 <div>
-                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-2 ml-1">
+                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-2 text-left">
                                     The Headline
                                   </label>
                                   <input
@@ -366,7 +366,7 @@ const MyLessons = () => {
 
                                 {/* Description */}
                                 <div>
-                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-2 ml-1">
+                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-2 text-left">
                                     The Lesson
                                   </label>
                                   <textarea
@@ -387,7 +387,7 @@ const MyLessons = () => {
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {/* Category */}
                                 <div>
-                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 ml-1">
+                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 text-left">
                                     Category
                                   </label>
                                   <div className="flex flex-wrap gap-2">
@@ -419,7 +419,7 @@ const MyLessons = () => {
 
                                 {/* Tone */}
                                 <div>
-                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 ml-1">
+                                  <label className="block text-xs font-bold text-[#4F6F52] uppercase mb-3 text-left">
                                     Emotional Tone
                                   </label>
                                   <div className="grid grid-cols-2 gap-2">
