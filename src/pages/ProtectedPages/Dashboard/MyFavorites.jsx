@@ -221,7 +221,7 @@ const MyFavorites = () => {
               wisdom worth keeping.
             </p>
             <Link
-              to="/"
+              to="/public-lessons"
               className="px-8 py-3 bg-[#1A2F23] text-white rounded-xl font-bold hover:bg-[#4F6F52] transition-colors shadow-lg hover:shadow-xl"
             >
               Browse Library

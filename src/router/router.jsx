@@ -16,6 +16,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyLessons from "../pages/ProtectedPages/Dashboard/MyLessons";
 import DashboardHome from "../pages/ProtectedPages/Dashboard/DashboardHome";
 import MyFavorites from "../pages/ProtectedPages/Dashboard/MyFavorites";
+import UserProfile from "../pages/ProtectedPages/Dashboard/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
       {
         path: "my-favorites",
         element: <MyFavorites />,
+      },
+      {
+        path: "profile",
+        element: <UserProfile />,
       },
     ],
   },

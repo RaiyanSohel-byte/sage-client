@@ -150,7 +150,7 @@ const UpgradePremium = () => {
                     Total Price
                   </span>
                   <span className="text-5xl font-serif font-bold text-[#1A2F23]">
-                    $30.00
+                    ৳1500
                   </span>
                 </div>
 

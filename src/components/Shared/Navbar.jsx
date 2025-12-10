@@ -61,13 +61,13 @@ const UserDropdown = ({ user, handleLogout }) => {
           {/* Header with User Info */}
           <div className="px-4 py-3 border-b border-dashed border-[#D4DEC9]/50">
             <p className="text-sm font-bold text-[#2C3E2E] truncate">
-              {user.displayName}
+              {user?.displayName}
             </p>
-            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
 
           {/* Menu Items */}
-          <div className="py-2">
+          <div className="py-2 z-50">
             <Link
               to="/dashboard"
               className="flex items-center px-4 py-2 text-sm text-[#2C3E2E]/80 hover:bg-[#F3F5F0] hover:text-[#4F6F52] transition-colors"
@@ -76,7 +76,7 @@ const UserDropdown = ({ user, handleLogout }) => {
               Dashboard
             </Link>
             <Link
-              to="/profile"
+              to="/dashboard/profile"
               className="flex items-center px-4 py-2 text-sm text-[#2C3E2E]/80 hover:bg-[#F3F5F0] hover:text-[#4F6F52] transition-colors"
             >
               <UserIcon size={16} className="mr-3" />
@@ -287,7 +287,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={`absolute top-full left-0 w-full bg-white border-b border-[#D4DEC9]/50 shadow-xl md:hidden overflow-hidden transition-all duration-300 ${
-          isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "h-[550px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="px-6 py-3 space-y-4">
@@ -346,16 +346,16 @@ const Navbar = () => {
               <>
                 <div className="flex items-center gap-3 p-3 bg-[#F7F7F2] rounded-lg">
                   <img
-                    src={user.photoURL}
+                    src={user?.photoURL}
                     alt=""
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <div>
                     <p className="font-bold text-[#2C3E2E] text-sm">
-                      {user.displayName}{" "}
+                      {user?.displayName}{" "}
                     </p>
 
-                    <p className="text-xs text-gray-500">{user.email}</p>
+                    <p className="text-xs text-gray-500">{user?.email}</p>
                   </div>
                 </div>
                 <Link

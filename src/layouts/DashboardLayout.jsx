@@ -161,9 +161,12 @@ const DashboardLayout = ({ children }) => {
             {navItems.map((item) => (
               <NavLink key={item.name} item={item} isMobile={true} />
             ))}
-            <button className="flex items-center gap-4 px-6 py-4 rounded-2xl text-white/50 hover:text-red-400 mt-8">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-4 px-6 py-4 rounded-2xl text-white/50 hover:text-red-400 mt-8"
+            >
               <LogOut size={20} />
-              <span className="text-sm font-bold">Log Out</span>
+              <span className="text-sm font-bold">Sign Out</span>
             </button>
           </nav>
         </div>
