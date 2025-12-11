@@ -22,6 +22,7 @@ import AdminHome from "../pages/ProtectedPages/Dashboard/Admin/AdminHome";
 import ReportedLessons from "../pages/ProtectedPages/Dashboard/Admin/ReportedLessons";
 import AdminProfile from "../pages/ProtectedPages/Dashboard/Admin/AdminProfile";
 import ManageUsers from "../pages/ProtectedPages/Dashboard/Admin/ManageUsers";
+import AdminRoute from "../routes/AdminRoute/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -104,23 +105,43 @@ export const router = createBrowserRouter([
       },
       {
         path: "approve-lessons",
-        element: <ApproveLessons />,
+        element: (
+          <AdminRoute>
+            <ApproveLessons />
+          </AdminRoute>
+        ),
       },
       {
         path: "admin-home",
-        element: <AdminHome />,
+        element: (
+          <AdminRoute>
+            <AdminHome />
+          </AdminRoute>
+        ),
       },
       {
         path: "reported-lessons",
-        element: <ReportedLessons />,
+        element: (
+          <AdminRoute>
+            <ReportedLessons />
+          </AdminRoute>
+        ),
       },
       {
         path: "admin-profile",
-        element: <AdminProfile />,
+        element: (
+          <AdminRoute>
+            <AdminProfile />
+          </AdminRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
     ],
   },
