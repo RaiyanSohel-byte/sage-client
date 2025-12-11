@@ -55,7 +55,7 @@ const PublicLessons = () => {
           currentPage * limit
         }&sort=${sort}&filter=${filter}&tone=${filter}&category=${encodeURIComponent(
           category
-        )}&search=${search}`
+        )}&search=${search}&status=approved`
       )
       .then((res) => {
         setLessons(res.data.result);
@@ -91,7 +91,7 @@ const PublicLessons = () => {
         }}
       />
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-0 py-16">
         {/* HERO SECTION */}
         <motion.div
           className="text-center mb-16 space-y-4"

@@ -10,6 +10,7 @@ import {
   X,
   Feather,
 } from "lucide-react";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { Link, Outlet, useLocation } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useTheme from "../hooks/useTheme";
@@ -52,6 +53,17 @@ const DashboardLayout = ({ children }) => {
 
   const navItems = [
     { name: "Home", path: "/dashboard", icon: <Home size={20} /> },
+    {
+      name: "Admin Home",
+      path: "/dashboard/admin-home",
+      icon: <Home size={20} />,
+    },
+    {
+      name: "Manage Lessons",
+      path: "/dashboard/approve-lessons",
+      icon: <AiOutlineCheckCircle size={20} />,
+    },
+
     {
       name: "Add Lessons",
       path: "/dashboard/add-lessons",

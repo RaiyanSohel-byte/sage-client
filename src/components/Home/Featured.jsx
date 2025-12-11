@@ -51,7 +51,7 @@ const Featured = () => {
           A curated treasury of exceptional wisdom
         </p>
       </div>
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-0">
         {/* LESSON GRID */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">

@@ -17,6 +17,7 @@ import MyLessons from "../pages/ProtectedPages/Dashboard/MyLessons";
 import DashboardHome from "../pages/ProtectedPages/Dashboard/DashboardHome";
 import MyFavorites from "../pages/ProtectedPages/Dashboard/MyFavorites";
 import UserProfile from "../pages/ProtectedPages/Dashboard/UserProfile";
+import ApproveLessons from "../pages/ProtectedPages/Dashboard/Admin/ApproveLessons";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <UserProfile />,
+      },
+      {
+        path: "approve-lessons",
+        element: <ApproveLessons />,
       },
     ],
   },
