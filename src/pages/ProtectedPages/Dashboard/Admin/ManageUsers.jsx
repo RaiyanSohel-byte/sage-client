@@ -221,7 +221,7 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="w-full font-sans min-h-[80vh] relative">
+    <div className="w-full font-sans min-h-[80vh] relative p-8">
       {/* 1. HEADER & SEARCH */}
       <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 animate-fade-in-up">
         <div>

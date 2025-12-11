@@ -9,13 +9,14 @@ import {
   Gem,
 } from "lucide-react";
 import { Link } from "react-router";
-import useAxios from "../../hooks/useAxios";
+
 import useTheme from "../../hooks/useTheme";
 import usePremium from "../../hooks/usePremium";
 
 const LessonCard = ({ lesson }) => {
   const { COLORS } = useTheme();
   const isPremium = usePremium();
+  console.log(isPremium);
   const isLessonPremium =
     lesson?.isPremium === true ||
     lesson?.isPremium === "true" ||

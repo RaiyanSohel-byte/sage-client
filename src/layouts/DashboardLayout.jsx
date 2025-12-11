@@ -17,6 +17,7 @@ import useTheme from "../hooks/useTheme";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Logo from "../components/Shared/Logo";
+import useRole from "../hooks/useRole";
 import { FaFlag, FaUsers } from "react-icons/fa";
 
 const DashboardLayout = ({ children }) => {
@@ -24,7 +25,8 @@ const DashboardLayout = ({ children }) => {
   const location = useLocation();
   const { logoutUser } = useAuth();
   const { COLORS } = useTheme();
-
+  const role = useRole();
+  console.log(role);
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -52,51 +54,59 @@ const DashboardLayout = ({ children }) => {
     });
   };
 
-  const navItems = [
-    { name: "Home", path: "/dashboard", icon: <Home size={20} /> },
-    {
-      name: "Admin Home",
-      path: "/dashboard/admin-home",
-      icon: <Home size={20} />,
-    },
+  const navItems =
+    role === "admin"
+      ? [
+          {
+            name: "Home",
+            path: "/dashboard/admin-home",
+            icon: <Home size={20} />,
+          },
 
-    {
-      name: "Manage Lessons",
-      path: "/dashboard/approve-lessons",
-      icon: <AiOutlineCheckCircle size={20} />,
-    },
-    {
-      name: "Reported Lessons",
-      path: "/dashboard/reported-lessons",
-      icon: <FaFlag />,
-    },
-    {
-      name: "Add Lessons",
-      path: "/dashboard/add-lessons",
-      icon: <PlusCircle size={20} />,
-    },
-    {
-      name: "My Lessons",
-      path: "/dashboard/my-lessons",
-      icon: <BookOpen size={20} />,
-    },
-    {
-      name: "My Favorites",
-      path: "/dashboard/my-favorites",
-      icon: <Heart size={20} />,
-    },
-    { name: "Profile", path: "/dashboard/profile", icon: <User size={20} /> },
-    {
-      name: "Admin Profile",
-      path: "/dashboard/admin-profile",
-      icon: <User size={20} />,
-    },
-    {
-      name: "Manage Users",
-      path: "/dashboard/manage-users",
-      icon: <FaUsers />,
-    },
-  ];
+          {
+            name: "Manage Lessons",
+            path: "/dashboard/approve-lessons",
+            icon: <AiOutlineCheckCircle size={20} />,
+          },
+          {
+            name: "Manage Users",
+            path: "/dashboard/manage-users",
+            icon: <FaUsers />,
+          },
+          {
+            name: "Reported Lessons",
+            path: "/dashboard/reported-lessons",
+            icon: <FaFlag />,
+          },
+          {
+            name: "Profile",
+            path: "/dashboard/admin-profile",
+            icon: <User size={20} />,
+          },
+        ]
+      : [
+          { name: "Home", path: "/dashboard", icon: <Home size={20} /> },
+          {
+            name: "Add Lessons",
+            path: "/dashboard/add-lessons",
+            icon: <PlusCircle size={20} />,
+          },
+          {
+            name: "My Lessons",
+            path: "/dashboard/my-lessons",
+            icon: <BookOpen size={20} />,
+          },
+          {
+            name: "My Favorites",
+            path: "/dashboard/my-favorites",
+            icon: <Heart size={20} />,
+          },
+          {
+            name: "Profile",
+            path: "/dashboard/profile",
+            icon: <User size={20} />,
+          },
+        ];
 
   const NavLink = ({ item, isMobile = false }) => {
     const isActive = location.pathname === item.path;
@@ -143,12 +153,12 @@ const DashboardLayout = ({ children }) => {
             Book of Wisdom
           </h1>
           <p className="text-[10px] text-[#D4C5A8] uppercase tracking-[0.2em] font-bold mt-1">
-            User Dashboard
+            {role === "admin" ? "Admin Dashboard" : "User Dashboard"}
           </p>
         </div>
 
         {/* NAVIGATION ITEMS */}
-        <nav className="flex-1 space-y-2 custom-scrollbar">
+        <nav className="flex-1 space-y-2">
           {navItems.map((item) => (
             <NavLink key={item.name} item={item} />
           ))}
@@ -173,9 +183,8 @@ const DashboardLayout = ({ children }) => {
 
       <div className="lg:hidden fixed top-0 w-full z-40 bg-[#1A2F23] text-white p-4 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[#D4C5A8] flex items-center justify-center">
-            <Feather size={16} className="text-[#1A2F23]" />
-          </div>
+          <Logo className="text-[#1A2F23]" />
+
           <span className="font-serif font-bold">Book of Wisdom</span>
         </div>
         <button onClick={() => setIsMobileOpen(!isMobileOpen)} className="p-2">
@@ -184,7 +193,7 @@ const DashboardLayout = ({ children }) => {
       </div>
 
       {isMobileOpen && (
-        <div className="fixed inset-0 z-30 lg:hidden bg-[#1A2F23] pt-20 px-6 animate-fade-in-right">
+        <div className="fixed inset-0 z-30 lg:hidden bg-[#1A2F23] pt-32 px-6 animate-fade-in-right">
           <nav className="flex flex-col space-y-4">
             {navItems.map((item) => (
               <NavLink key={item.name} item={item} isMobile={true} />
