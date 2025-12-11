@@ -76,6 +76,7 @@ const LessonDetails = () => {
       reportedUserEmail: user.email,
       reportReason: e.target.reportReason.value,
       reportDetails: e.target.reportDetails.value,
+      postTitle: lesson.title,
     };
     axiosInstance.post("/reports", reportInfo).then((res) => {
       e.target.reset();
@@ -333,7 +334,7 @@ const LessonDetails = () => {
             </div>
 
             {/* TITLE */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl  font-bold text-[#1A2F23] leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl  line-clamp-1 font-bold text-[#1A2F23] leading-tight">
               {lesson.title}
             </h1>
 

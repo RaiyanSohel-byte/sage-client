@@ -17,6 +17,7 @@ import useTheme from "../hooks/useTheme";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Logo from "../components/Shared/Logo";
+import { FaFlag, FaUsers } from "react-icons/fa";
 
 const DashboardLayout = ({ children }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -58,12 +59,17 @@ const DashboardLayout = ({ children }) => {
       path: "/dashboard/admin-home",
       icon: <Home size={20} />,
     },
+
     {
       name: "Manage Lessons",
       path: "/dashboard/approve-lessons",
       icon: <AiOutlineCheckCircle size={20} />,
     },
-
+    {
+      name: "Reported Lessons",
+      path: "/dashboard/reported-lessons",
+      icon: <FaFlag />,
+    },
     {
       name: "Add Lessons",
       path: "/dashboard/add-lessons",
@@ -80,6 +86,16 @@ const DashboardLayout = ({ children }) => {
       icon: <Heart size={20} />,
     },
     { name: "Profile", path: "/dashboard/profile", icon: <User size={20} /> },
+    {
+      name: "Admin Profile",
+      path: "/dashboard/admin-profile",
+      icon: <User size={20} />,
+    },
+    {
+      name: "Manage Users",
+      path: "/dashboard/manage-users",
+      icon: <FaUsers />,
+    },
   ];
 
   const NavLink = ({ item, isMobile = false }) => {
@@ -132,7 +148,7 @@ const DashboardLayout = ({ children }) => {
         </div>
 
         {/* NAVIGATION ITEMS */}
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-1 space-y-2 custom-scrollbar">
           {navItems.map((item) => (
             <NavLink key={item.name} item={item} />
           ))}

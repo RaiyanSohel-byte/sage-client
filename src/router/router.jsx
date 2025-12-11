@@ -19,6 +19,9 @@ import MyFavorites from "../pages/ProtectedPages/Dashboard/MyFavorites";
 import UserProfile from "../pages/ProtectedPages/Dashboard/UserProfile";
 import ApproveLessons from "../pages/ProtectedPages/Dashboard/Admin/ApproveLessons";
 import AdminHome from "../pages/ProtectedPages/Dashboard/Admin/AdminHome";
+import ReportedLessons from "../pages/ProtectedPages/Dashboard/Admin/ReportedLessons";
+import AdminProfile from "../pages/ProtectedPages/Dashboard/Admin/AdminProfile";
+import ManageUsers from "../pages/ProtectedPages/Dashboard/Admin/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +109,18 @@ export const router = createBrowserRouter([
       {
         path: "admin-home",
         element: <AdminHome />,
+      },
+      {
+        path: "reported-lessons",
+        element: <ReportedLessons />,
+      },
+      {
+        path: "admin-profile",
+        element: <AdminProfile />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
       },
     ],
   },

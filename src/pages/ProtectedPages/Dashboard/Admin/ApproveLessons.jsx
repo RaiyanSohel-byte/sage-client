@@ -10,8 +10,9 @@ import {
 } from "lucide-react";
 import { TbCancel } from "react-icons/tb";
 import useAxios from "../../../../hooks/useAxios";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const ApproveLessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -39,7 +40,7 @@ const ApproveLessons = () => {
     fetchLessons();
   }, [axiosInstance]);
 
-  const handleApprove = async (id) => {
+  const handleApprove = (id) => {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -60,6 +61,32 @@ const ApproveLessons = () => {
           Swal.fire({
             title: "Approved!",
             text: "You approved the lesson.",
+            icon: "success",
+            confirmButtonColor: "#1a2f23",
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Failed to approve lesson", error);
+    }
+  };
+  const handleRemove = (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1a2f23",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Remove!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setLessons((prev) => prev.filter((lesson) => lesson._id !== id));
+          await axiosInstance.delete(`/lessons/${id}`);
+          Swal.fire({
+            title: "Removed!",
+            text: "You removed the lesson.",
             icon: "success",
             confirmButtonColor: "#1a2f23",
           });
@@ -179,9 +206,12 @@ const ApproveLessons = () => {
                           <FileText size={20} />
                         </div>
                         <div>
-                          <h3 className="font-serif font-bold text-[#1A2F23] text-lg leading-tight mb-1 group-hover:text-[#4F6F52] transition-colors line-clamp-1">
+                          <Link
+                            to={`/lesson-details/${lesson._id}`}
+                            className="font-serif font-bold text-[#1A2F23] text-md leading-tight mb-1 group-hover:text-[#4F6F52] transition-colors text-clip"
+                          >
                             {lesson.title}
-                          </h3>
+                          </Link>
                           <p className="text-xs text-gray-500 font-medium bg-gray-100 inline-block px-2 py-0.5 rounded-md">
                             {lesson.category}
                           </p>
@@ -227,7 +257,7 @@ const ApproveLessons = () => {
                     <td className="p-6 pr-10 text-right">
                       <div className="flex justify-end">
                         {lesson.status === "approved" ? (
-                          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#4F6F52]/10 text-[#4F6F52] border border-[#4F6F52]/20 animate-fade-in">
+                          <div className="flex items-center gap-2 px-2 py-2 rounded-full bg-[#4F6F52]/10 text-[#4F6F52] border border-[#4F6F52]/20 animate-fade-in">
                             <FaCheckCircle
                               size={16}
                               fill="currentColor"
@@ -238,18 +268,26 @@ const ApproveLessons = () => {
                             </span>
                           </div>
                         ) : (
-                          <button
-                            onClick={() => handleApprove(lesson._id)}
-                            className="group/btn flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1A2F23] text-white hover:bg-[#4F6F52] hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md cursor-pointer"
-                          >
-                            <span className="text-xs font-bold uppercase tracking-wider">
-                              Approve
-                            </span>
-                            <CheckCircle
-                              size={16}
-                              className="text-[#D4C5A8] group-hover/btn:scale-110 transition-transform"
-                            />
-                          </button>
+                          <div className="flex items-center justify-center gap-1">
+                            <button
+                              onClick={() => handleApprove(lesson._id)}
+                              className="group/btn cursor-pointer btn btn-success btn-outline btn-sm"
+                            >
+                              <CheckCircle
+                                size={16}
+                                className="text-green-500 group-hover/btn:scale-110 transition-transform"
+                              />
+                            </button>
+                            <button
+                              onClick={() => handleRemove(lesson._id)}
+                              className="group/btn  btn btn-error btn-outline btn-sm cursor-pointer"
+                            >
+                              <FaTrash
+                                size={16}
+                                className="text-red-500 group-hover/btn:scale-110 transition-transform"
+                              />
+                            </button>
+                          </div>
                         )}
                       </div>
                     </td>

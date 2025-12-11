@@ -165,7 +165,7 @@ const AdminHome = () => {
   }
 
   return (
-    <div className="w-full min-h-screen font-sans space-y-8 pb-20">
+    <div className="w-full min-h-screen font-sans space-y-8 p-8">
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 animate-fade-in-up">
         <div>
