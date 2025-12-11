@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import {
   Clock,
   ExternalLink,
@@ -8,24 +9,25 @@ import {
   Crown,
   Gem,
 } from "lucide-react";
-import { Link } from "react-router";
-
 import useTheme from "../../hooks/useTheme";
 import usePremium from "../../hooks/usePremium";
 
 const LessonCard = ({ lesson }) => {
   const { COLORS } = useTheme();
   const isPremium = usePremium();
-  console.log(isPremium);
+
+  // Determine if this lesson requires premium access
   const isLessonPremium =
     lesson?.isPremium === true ||
     lesson?.isPremium === "true" ||
     lesson?.isPremiumAccess === true ||
     lesson?.isPremiumAccess === "true";
 
+  // Determine if we know the user is premium
   const isUserPremium = isPremium === true;
 
-  const isLocked = isLessonPremium && !isUserPremium;
+  // Handle locked state: only lock if we know the user is NOT premium
+  const isLocked = isLessonPremium && isUserPremium === false;
 
   return (
     <div
@@ -40,11 +42,11 @@ const LessonCard = ({ lesson }) => {
           : "0 25px 50px -12px rgba(26, 47, 35, 0.1)",
       }}
     >
-      {/* PREMIUM LOCK SCREEN*/}
+      {/* PREMIUM LOCK SCREEN */}
       {isLocked && (
         <div
           className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center backdrop-blur-md"
-          style={{ backgroundColor: `${COLORS.darkGreen}CC` }}
+          style={{ backgroundColor: `${COLORS.dark}CC` }}
         >
           <div
             className="p-4 rounded-full mb-4 shadow-lg"
@@ -64,7 +66,7 @@ const LessonCard = ({ lesson }) => {
           <Link to="/payment">
             <button
               className="px-6 cursor-pointer py-3 rounded-xl text-sm font-bold uppercase shadow-lg"
-              style={{ backgroundColor: COLORS.gold, color: COLORS.darkGreen }}
+              style={{ backgroundColor: COLORS.gold, color: COLORS.dark }}
             >
               Upgrade to View
             </button>
@@ -72,7 +74,7 @@ const LessonCard = ({ lesson }) => {
         </div>
       )}
 
-      {/* MAIN CONTENT*/}
+      {/* MAIN CONTENT */}
       <div
         className={`p-6 md:p-8 h-full flex flex-col ${
           isLocked
@@ -92,10 +94,10 @@ const LessonCard = ({ lesson }) => {
           </div>
 
           {/* Access Badge */}
-          {lesson.isPremium ? (
+          {isLessonPremium ? (
             <span
               className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-lg"
-              style={{ color: COLORS.darkGreen, backgroundColor: COLORS.gold }}
+              style={{ color: COLORS.dark, backgroundColor: COLORS.gold }}
             >
               <Crown size={12} /> Premium
             </span>
@@ -110,7 +112,7 @@ const LessonCard = ({ lesson }) => {
         <div className="mb-6 flex-grow">
           <h2
             className="text-2xl font-serif font-bold leading-tight mb-3 line-clamp-2"
-            style={{ color: COLORS.darkGreen }}
+            style={{ color: COLORS.dark }}
           >
             {lesson.title}
           </h2>
@@ -160,10 +162,7 @@ const LessonCard = ({ lesson }) => {
               <p className="text-xs text-gray-400 uppercase font-bold tracking-wider">
                 Posted By
               </p>
-              <p
-                className="text-sm font-bold"
-                style={{ color: COLORS.darkGreen }}
-              >
+              <p className="text-sm font-bold" style={{ color: COLORS.dark }}>
                 {lesson.name}
               </p>
               <span className="text-gray-400 text-xs flex items-center gap-1">
@@ -175,7 +174,7 @@ const LessonCard = ({ lesson }) => {
           <Link
             to={`/lesson-details/${lesson._id}`}
             className="flex items-center justify-center cursor-pointer gap-2 px-4 py-3 mt-3 xl:mt-0 rounded-xl font-medium transition-all hover:gap-3 hover:shadow-md active:scale-95"
-            style={{ backgroundColor: COLORS.mist, color: COLORS.darkGreen }}
+            style={{ backgroundColor: COLORS.mist, color: COLORS.dark }}
           >
             <span>See Details</span>
             <ExternalLink size={18} style={{ color: COLORS.sage }} />
