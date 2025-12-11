@@ -110,6 +110,7 @@ const LessonDetails = () => {
     axiosInstance.post("/likes", likedInfo).then((res) => {
       if (res.data.result.insertedId) {
         setIsLiked(true);
+        setLikeId(res.data.result.insertedId);
         axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
           setLikes(res.data.likes);
           toast.success("Liked!");
@@ -124,6 +125,7 @@ const LessonDetails = () => {
       setIsLiked(false);
       axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
         setLikes(res.data.likes);
+        setLikeId("");
         toast.success("Removed from likes");
       });
     });
