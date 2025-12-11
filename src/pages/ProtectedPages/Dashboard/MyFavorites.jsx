@@ -13,10 +13,12 @@ import {
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
 
   // NEW STATES FOR FILTERS
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -55,7 +57,7 @@ const MyFavorites = () => {
         setFavorites(favorites.filter((fav) => fav._id !== id));
 
         try {
-          await axiosInstance.delete(`/favorites/${id}`);
+          await axiosSecure.delete(`/favorites/${id}`);
         } catch (error) {
           console.error("Failed to delete", error);
           setFavorites(previousFavorites);

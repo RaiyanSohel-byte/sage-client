@@ -22,6 +22,7 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import usePremium from "../../../hooks/usePremium";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyLessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -30,6 +31,7 @@ const MyLessons = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const isPremium = usePremium();
+  const axiosSecure = useAxiosSecure();
 
   const { register, handleSubmit, setValue, watch, reset } = useForm();
   const modalRef = useRef(null);
@@ -64,11 +66,8 @@ const MyLessons = () => {
         image: imagePreview ? imagePreview : "",
       };
 
-      await axiosInstance.patch(
-        `/lessons/${selectedLesson._id}`,
-        updatedLesson
-      );
-      await axiosInstance.patch(
+      await axiosSecure.patch(`/lessons/${selectedLesson._id}`, updatedLesson);
+      await axiosSecure.patch(
         `/favorites/${selectedLesson._id}`,
         updatedLesson
       );
@@ -140,7 +139,7 @@ const MyLessons = () => {
       confirmButtonText: "Yes, remove!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosInstance.delete(`/lessons/${id}`).then((res) => {
+        axiosSecure.delete(`/lessons/${id}`).then((res) => {
           if (res.data.result.deletedCount) {
             setLessons(lessons.filter((lesson) => lesson._id !== id));
 

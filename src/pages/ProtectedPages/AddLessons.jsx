@@ -19,9 +19,10 @@ import Lottie from "lottie-react";
 import useTheme from "../../hooks/useTheme";
 import { FaLock } from "react-icons/fa";
 import { GiWorld } from "react-icons/gi";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddLessons = () => {
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const isPremium = usePremium();
   const { user } = useAuth();
 
@@ -83,7 +84,7 @@ const AddLessons = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axiosInstance.post("/lessons", {
+      await axiosSecure.post("/lessons", {
         title: data.title,
         description: data.description,
         category: data.category,

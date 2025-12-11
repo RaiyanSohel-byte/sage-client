@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import useAxios from "../../../../hooks/useAxios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const ReportedLessons = () => {
   const [groupedReports, setGroupedReports] = useState([]);
@@ -27,12 +28,12 @@ const ReportedLessons = () => {
     description: "",
   });
 
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/reports");
+        const res = await axiosSecure.get("/reports");
         const rawReports = res.data || [];
 
         const groups = rawReports.reduce((acc, report) => {
@@ -67,15 +68,15 @@ const ReportedLessons = () => {
     };
 
     fetchData();
-  }, [axiosInstance]);
+  }, [axiosSecure]);
 
   const performDeleteLesson = async (group) => {
     const { postId, reports } = group;
     try {
-      await axiosInstance.delete(`/lessons/${postId}`);
+      await axiosSecure.delete(`/lessons/${postId}`);
 
       await Promise.all(
-        reports.map((r) => axiosInstance.delete(`/reports/${r._id}`))
+        reports.map((r) => axiosSecure.delete(`/reports/${r._id}`))
       );
 
       setGroupedReports((prev) => prev.filter((g) => g.postId !== postId));
@@ -90,7 +91,7 @@ const ReportedLessons = () => {
   const performIgnoreReports = async (group) => {
     try {
       await Promise.all(
-        group.reports.map((r) => axiosInstance.delete(`/reports/${r._id}`))
+        group.reports.map((r) => axiosSecure.delete(`/reports/${r._id}`))
       );
 
       setGroupedReports((prev) =>

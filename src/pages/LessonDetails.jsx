@@ -23,12 +23,14 @@ import Swal from "sweetalert2";
 import usePremium from "../hooks/usePremium";
 import LessonCard from "../components/Shared/LessonCard";
 import useTheme from "../hooks/useTheme";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const LessonDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const isPremium = usePremium();
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const COLORS = useTheme();
 
@@ -78,7 +80,7 @@ const LessonDetails = () => {
       reportDetails: e.target.reportDetails.value,
       postTitle: lesson.title,
     };
-    axiosInstance.post("/reports", reportInfo).then((res) => {
+    axiosSecure.post("/reports", reportInfo).then((res) => {
       e.target.reset();
       reportModalRef.current.close();
 
@@ -108,7 +110,7 @@ const LessonDetails = () => {
       postImage: lesson.image,
       postTitle: lesson.title,
     };
-    axiosInstance.post("/likes", likedInfo).then((res) => {
+    axiosSecure.post("/likes", likedInfo).then((res) => {
       if (res.data.result.insertedId) {
         setIsLiked(true);
         setLikeId(res.data.result.insertedId);
@@ -122,7 +124,7 @@ const LessonDetails = () => {
 
   //remove like
   const handleLikeDelete = () => {
-    axiosInstance.delete(`/likes/${likeId}`).then((res) => {
+    axiosSecure.delete(`/likes/${likeId}`).then((res) => {
       setIsLiked(false);
       axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
         setLikes(res.data.likes);
@@ -149,7 +151,7 @@ const LessonDetails = () => {
       postCategory: lesson.category,
       postTone: lesson.tone,
     };
-    axiosInstance.post("/favorites", favoriteInfo).then((res) => {
+    axiosSecure.post("/favorites", favoriteInfo).then((res) => {
       if (res.data.result.insertedId) {
         setIsFavorite(true);
         setFavoriteId(res.data.result.insertedId);
@@ -163,7 +165,7 @@ const LessonDetails = () => {
 
   //remove from favorites
   const handleFavoriteDelete = () => {
-    axiosInstance.delete(`/favorites/${favoriteId}`).then(() => {
+    axiosSecure.delete(`/favorites/${favoriteId}`).then(() => {
       setIsFavorite(false);
       axiosInstance.get(`/lessons/${lesson._id}`).then((res) => {
         setFavorites(res.data.favorites);
@@ -281,7 +283,7 @@ const LessonDetails = () => {
     setComments([commentObj, ...comments]);
     setNewComment("");
 
-    axiosInstance
+    axiosSecure
       .patch(`/lessons/${id}`, commentObj)
       .then((res) => {
         if (res.data.modifiedCount) {

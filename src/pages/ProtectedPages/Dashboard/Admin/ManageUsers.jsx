@@ -37,6 +37,7 @@ const ManageUsers = () => {
   });
 
   const axiosInstance = useAxios();
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +91,7 @@ const ManageUsers = () => {
       );
       setUsers(updatedUsers);
 
-      await axiosInstance.patch(`/users/${user._id}`, { role: newRole });
+      await axiosSecure.patch(`/users/${user._id}`, { role: newRole });
       toast.success(`User role updated to ${newRole}`);
     } catch (error) {
       console.error("Role update failed", error);
@@ -101,7 +102,7 @@ const ManageUsers = () => {
   const executeDeleteUser = async (user) => {
     try {
       setUsers((prev) => prev.filter((u) => u._id !== user._id));
-      await axiosInstance.delete(`/users/${user._id}`);
+      await axiosSecure.delete(`/users/${user._id}`);
       toast.success("User account deleted.");
     } catch (error) {
       console.error("Delete failed", error);

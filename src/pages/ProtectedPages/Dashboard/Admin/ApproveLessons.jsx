@@ -13,11 +13,13 @@ import useAxios from "../../../../hooks/useAxios";
 import { FaCheckCircle, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const ApproveLessons = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -57,7 +59,7 @@ const ApproveLessons = () => {
               lesson._id === id ? { ...lesson, status: "approved" } : lesson
             )
           );
-          await axiosInstance.patch(`/lessons/${id}`, { status: "approved" });
+          await axiosSecure.patch(`/lessons/${id}`, { status: "approved" });
           Swal.fire({
             title: "Approved!",
             text: "You approved the lesson.",
@@ -83,7 +85,7 @@ const ApproveLessons = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           setLessons((prev) => prev.filter((lesson) => lesson._id !== id));
-          await axiosInstance.delete(`/lessons/${id}`);
+          await axiosSecure.delete(`/lessons/${id}`);
           Swal.fire({
             title: "Removed!",
             text: "You removed the lesson.",
@@ -122,7 +124,7 @@ const ApproveLessons = () => {
                 : lesson
             )
           );
-          await axiosInstance.patch(`/lessons/${id}`, {
+          await axiosSecure.patch(`/lessons/${id}`, {
             isFeatured: featuredTask === "add to featured" ? "true" : "false",
           });
           Swal.fire({

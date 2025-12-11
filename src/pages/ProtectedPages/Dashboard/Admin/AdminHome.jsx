@@ -21,10 +21,12 @@ import {
   Bar,
 } from "recharts";
 import useAxios from "../../../../hooks/useAxios";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const AdminHome = () => {
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
 
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -54,7 +56,7 @@ const AdminHome = () => {
         ] = await Promise.all([
           axiosInstance.get("/users"),
           axiosInstance.get("/lessons?isPrivate=false"),
-          axiosInstance.get("/reports"),
+          axiosSecure.get("/reports"),
           axiosInstance.get("/top-contributors-week"),
           axiosInstance.get("/lessons?sort=postedAt"),
         ]);
@@ -122,7 +124,7 @@ const AdminHome = () => {
     };
 
     fetchAdminData();
-  }, [axiosInstance]);
+  }, [axiosInstance, axiosSecure]);
 
   const AdminStatCard = ({ title, value, icon, color, trend }) => (
     <div className="bg-white rounded-[2rem] p-6 shadow-lg border border-transparent hover:border-gray-200 transition-all flex flex-col justify-between h-40 relative overflow-hidden group">
