@@ -8,8 +8,8 @@ import {
   ShieldCheck,
   AlertCircle,
 } from "lucide-react";
+import { TbCancel } from "react-icons/tb";
 import useAxios from "../../../../hooks/useAxios";
-import toast from "react-hot-toast";
 import { FaCheckCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -70,8 +70,48 @@ const ApproveLessons = () => {
     }
   };
 
+  const handleFeatured = async (id, featuredTask) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1a2f23",
+        cancelButtonColor: "#d33",
+        confirmButtonText: `Yes, ${
+          featuredTask === "add to featured" ? "Feature" : "Remove"
+        }!`,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setLessons((prev) =>
+            prev.map((lesson) =>
+              lesson._id === id
+                ? {
+                    ...lesson,
+                    isFeatured:
+                      featuredTask === "add to featured" ? "true" : "false",
+                  }
+                : lesson
+            )
+          );
+          await axiosInstance.patch(`/lessons/${id}`, {
+            isFeatured: featuredTask === "add to featured" ? "true" : "false",
+          });
+          Swal.fire({
+            title: "Featured!",
+            text: "You featured the lesson.",
+            icon: "success",
+            confirmButtonColor: "#1a2f23",
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Failed to feature lesson", error);
+    }
+  };
   return (
-    <div className="w-full font-sans min-h-[80vh]">
+    <div className="w-full font-sans min-h-[80vh] p-8">
       {/*  HEADER */}
       <div className="mb-10 animate-fade-in-up">
         <div className="flex items-center gap-3 mb-2">
@@ -120,6 +160,9 @@ const ApproveLessons = () => {
                   </th>
                   <th className="p-6 pr-10 text-xs font-bold text-gray-400 uppercase tracking-widest w-3/12 text-right">
                     Approval Status
+                  </th>
+                  <th className="p-6 pr-10 text-xs font-bold text-gray-400 uppercase tracking-widest w-3/12 text-right">
+                    Feature Status
                   </th>
                 </tr>
               </thead>
@@ -201,6 +244,44 @@ const ApproveLessons = () => {
                           >
                             <span className="text-xs font-bold uppercase tracking-wider">
                               Approve
+                            </span>
+                            <CheckCircle
+                              size={16}
+                              className="text-[#D4C5A8] group-hover/btn:scale-110 transition-transform"
+                            />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+
+                    {/* COL 5: FEATURED ACTION */}
+                    <td className="p-6 pr-10 text-right">
+                      <div className="flex justify-end">
+                        {lesson.isFeatured === "true" ? (
+                          <button
+                            onClick={() =>
+                              handleFeatured(lesson._id, "remove from featured")
+                            }
+                            className="group/btn flex items-center gap-2 px-6 py-2.5 rounded-full bg-red-700 text-white hover:bg-red-500 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md cursor-pointer"
+                          >
+                            <span className="text-xs font-bold uppercase tracking-wider">
+                              Remove
+                            </span>
+                            <TbCancel
+                              color="white"
+                              size={16}
+                              className="text-[#D4C5A8] group-hover/btn:scale-110 transition-transform"
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              handleFeatured(lesson._id, "add to featured")
+                            }
+                            className="group/btn flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#1A2F23] text-white hover:bg-[#4F6F52] hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md cursor-pointer"
+                          >
+                            <span className="text-xs font-bold uppercase tracking-wider">
+                              Feature
                             </span>
                             <CheckCircle
                               size={16}
