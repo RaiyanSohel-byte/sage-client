@@ -1,15 +1,15 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { FileQuestion, ArrowLeft, Home, Compass } from "lucide-react";
 
 const Error404 = () => {
   const navigate = useNavigate();
 
   const THEME = {
-    dark: "#1A2F23", // Dark Forest
-    primary: "#4F6F52", // Sage
-    light: "#F3F5F0", // Mist
-    accent: "#D4C5A8", // Gold
+    dark: "#1A2F23",
+    primary: "#4F6F52",
+    light: "#F3F5F0",
+    accent: "#D4C5A8",
     white: "#FFFFFF",
   };
 
