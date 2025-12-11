@@ -23,6 +23,7 @@ import ReportedLessons from "../pages/ProtectedPages/Dashboard/Admin/ReportedLes
 import AdminProfile from "../pages/ProtectedPages/Dashboard/Admin/AdminProfile";
 import ManageUsers from "../pages/ProtectedPages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "../routes/AdminRoute/AdminRoute";
+import Error404 from "../components/Shared/Error404";
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+        path: "*",
+        element: <Error404 />,
+      },
+      {
         index: true,
         element: <DashboardHome />,
       },
@@ -144,5 +149,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error404 />,
   },
 ]);
