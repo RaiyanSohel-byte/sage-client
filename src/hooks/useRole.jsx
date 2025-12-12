@@ -11,7 +11,7 @@ const useRole = () => {
     if (!user?.email) return;
 
     axiosInstance.get(`/users?email=${user.email}`).then((res) => {
-      setRole(res.data[0]?.role || "user");
+      setRole(res.data[0]?.role);
     });
   }, [user?.email, axiosInstance]);
 

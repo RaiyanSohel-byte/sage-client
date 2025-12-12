@@ -153,7 +153,11 @@ const DashboardLayout = ({ children }) => {
             Book of Wisdom
           </h1>
           <p className="text-[10px] text-[#D4C5A8] uppercase tracking-[0.2em] font-bold mt-1">
-            {role === "admin" ? "Admin Dashboard" : "User Dashboard"}
+            {role === "admin"
+              ? "Admin Dashboard"
+              : role === "user"
+              ? "User Dashboard"
+              : "Loading..."}
           </p>
         </div>
 

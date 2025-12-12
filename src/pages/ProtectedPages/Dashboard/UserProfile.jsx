@@ -19,6 +19,7 @@ import usePremium from "../../../hooks/usePremium";
 import useTheme from "../../../hooks/useTheme";
 import LessonCard from "../../../components/Shared/LessonCard";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const UserProfile = () => {
   const [UserProfileData, setUserProfileData] = useState(null);
@@ -33,6 +34,7 @@ const UserProfile = () => {
   });
 
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user, updateUser } = useAuth();
   const isPremium = usePremium();
 
@@ -98,7 +100,7 @@ const UserProfile = () => {
     try {
       const updatedLocalData = { ...UserProfileData, ...editFormData };
 
-      await axiosInstance.patch(`/users/${UserProfileData._id}`, editFormData);
+      await axiosSecure.patch(`/users/${UserProfileData._id}`, editFormData);
 
       await updateUser({
         displayName: editFormData.displayName,
