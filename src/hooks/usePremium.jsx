@@ -11,7 +11,7 @@ const usePremium = () => {
     if (!user?.email) return;
 
     axiosInstance.get(`/users?email=${user.email}`).then((res) => {
-      setIsPremium(res.data[0]?.isPremium || false);
+      setIsPremium(res.data[0]?.isPremium);
     });
   }, [user?.email]);
 

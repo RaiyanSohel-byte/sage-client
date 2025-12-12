@@ -280,14 +280,13 @@ const LessonDetails = () => {
       text: newComment,
     };
 
-    setComments([commentObj, ...comments]);
-    setNewComment("");
-
     axiosSecure
       .patch(`/lessons/${id}`, commentObj)
       .then((res) => {
         if (res.data.modifiedCount) {
           toast.success("Comment Posted!");
+          setComments([commentObj, ...comments]);
+          setNewComment("");
         }
       })
       .catch((err) => {

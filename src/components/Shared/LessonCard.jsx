@@ -16,17 +16,14 @@ const LessonCard = ({ lesson }) => {
   const { COLORS } = useTheme();
   const isPremium = usePremium();
 
-  // Determine if this lesson requires premium access
   const isLessonPremium =
     lesson?.isPremium === true ||
     lesson?.isPremium === "true" ||
     lesson?.isPremiumAccess === true ||
     lesson?.isPremiumAccess === "true";
 
-  // Determine if we know the user is premium
   const isUserPremium = isPremium === true;
 
-  // Handle locked state: only lock if we know the user is NOT premium
   const isLocked = isLessonPremium && isUserPremium === false;
 
   return (
