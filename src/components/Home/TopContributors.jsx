@@ -26,7 +26,7 @@ const TopContributors = () => {
     fetchContributors();
   }, [axiosInstance]);
 
-  // --- STYLING LOGIC ---
+
   const getRankStyles = (index) => {
     // RANK 1: THE CHAMPION
     if (index === 0)

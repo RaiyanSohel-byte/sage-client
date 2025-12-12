@@ -6,7 +6,7 @@
 
 ## 🔗 Live Website
 
-[Visit Sage](https://famous-nougat-911cf7.netlify.app)
+[Visit Sage](https://sage-wisdom-client.netlify.app)
 [Live Server](https://sage-server-seven.vercel.app/users)
 
 [Github Repo Client](https://github.com/RaiyanSohel-byte/sage-client)
