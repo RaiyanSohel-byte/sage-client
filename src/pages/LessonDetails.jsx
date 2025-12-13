@@ -596,7 +596,7 @@ const LessonDetails = () => {
         </article>
 
         {/* SIDEBAR */}
-        <aside className="hidden lg:block space-y-8">
+        <aside className="block space-y-8">
           {/* AUTHOR CARD */}
           <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100">
             <div className="flex flex-col items-center text-center">

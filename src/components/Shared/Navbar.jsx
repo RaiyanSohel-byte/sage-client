@@ -17,11 +17,12 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import usePremium from "../../hooks/usePremium";
+import useRole from "../../hooks/useRole";
 
 const UserDropdown = ({ user, handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+  const role = useRole();
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -69,7 +70,7 @@ const UserDropdown = ({ user, handleLogout }) => {
           {/* Menu Items */}
           <div className="py-2 z-50">
             <Link
-              to="/dashboard"
+              to={role === "admin" ? "/dashboard/admin-home" : "/dashboard"}
               className="flex items-center px-4 py-2 text-sm text-[#2C3E2E]/80 hover:bg-[#F3F5F0] hover:text-[#4F6F52] transition-colors"
             >
               <LayoutDashboard size={16} className="mr-3" />
@@ -105,6 +106,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logoutUser } = useAuth();
   const isPremium = usePremium();
+
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
