@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { BookOpen, Check, Home, Sparkles } from "lucide-react";
 import useTheme from "../../hooks/useTheme";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -11,6 +12,7 @@ const PaymentSuccess = () => {
 
   const { user } = useAuth();
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const [currUser, setCurrUser] = useState(null);
 
@@ -25,9 +27,9 @@ const PaymentSuccess = () => {
   console.log(currUser);
   useEffect(() => {
     if (session_id && currUser?._id) {
-      axiosInstance.patch(`/users/${currUser._id}`, { isPremium: true });
+      axiosSecure.patch(`/users/${currUser._id}`, { isPremium: true });
     }
-  }, [session_id, user, axiosInstance, currUser]);
+  }, [session_id, user, axiosSecure, currUser]);
 
   const { COLORS } = useTheme();
 
