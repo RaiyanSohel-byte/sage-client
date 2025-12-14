@@ -54,12 +54,14 @@ const ApproveLessons = () => {
         confirmButtonText: "Yes, approve!",
       }).then(async (result) => {
         if (result.isConfirmed) {
+          await axiosSecure.patch(`/lessons/${id}/status`, {
+            status: "approved",
+          });
           setLessons((prev) =>
             prev.map((lesson) =>
               lesson._id === id ? { ...lesson, status: "approved" } : lesson
             )
           );
-          await axiosSecure.patch(`/lessons/${id}`, { status: "approved" });
           Swal.fire({
             title: "Approved!",
             text: "You approved the lesson.",
