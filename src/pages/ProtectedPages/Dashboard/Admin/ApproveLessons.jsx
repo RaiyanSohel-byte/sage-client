@@ -126,12 +126,12 @@ const ApproveLessons = () => {
                 : lesson
             )
           );
-          await axiosSecure.patch(`/lessons/${id}`, {
+          await axiosSecure.patch(`/lessons/${id}/featured`, {
             isFeatured: featuredTask === "add to featured" ? "true" : "false",
           });
           Swal.fire({
-            title: "Featured!",
-            text: "You featured the lesson.",
+            title: "Removed!",
+            text: "You removed the lessons from featured.",
             icon: "success",
             confirmButtonColor: "#1a2f23",
           });

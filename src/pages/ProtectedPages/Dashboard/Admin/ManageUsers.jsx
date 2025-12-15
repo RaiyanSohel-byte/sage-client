@@ -18,6 +18,7 @@ import {
 
 import toast from "react-hot-toast";
 import useAxios from "../../../../hooks/useAxios";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -37,7 +38,7 @@ const ManageUsers = () => {
   });
 
   const axiosInstance = useAxios();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,7 +92,7 @@ const ManageUsers = () => {
       );
       setUsers(updatedUsers);
 
-      await axiosSecure.patch(`/users/${user._id}`, { role: newRole });
+      await axiosSecure.patch(`/users/${user._id}/role`, { role: newRole });
       toast.success(`User role updated to ${newRole}`);
     } catch (error) {
       console.error("Role update failed", error);
@@ -102,7 +103,7 @@ const ManageUsers = () => {
   const executeDeleteUser = async (user) => {
     try {
       setUsers((prev) => prev.filter((u) => u._id !== user._id));
-      await axiosSecure.delete(`/users/${user._id}`);
+      await axiosSecure.delete(`/users/${user._id}/role`);
       toast.success("User account deleted.");
     } catch (error) {
       console.error("Delete failed", error);
@@ -123,19 +124,6 @@ const ManageUsers = () => {
       message: `Are you sure you want to ${actionText.toLowerCase()}? This will change their access permissions immediately.`,
       actionButtonText: actionText,
       isDanger: newRole === "user",
-    });
-  };
-
-  const requestDeleteUser = (user) => {
-    setConfirmation({
-      isOpen: true,
-      type: "delete",
-      data: user,
-      title: "Delete User Account?",
-      message:
-        "WARNING: This action is permanent. The user and their profile data will be removed from the database.",
-      actionButtonText: "Delete Account",
-      isDanger: true,
     });
   };
 
@@ -380,15 +368,6 @@ const ManageUsers = () => {
                               <ShieldCheck size={14} />
                             )}
                             {userData.role === "admin" ? "Demote" : "Promote"}
-                          </button>
-
-                          {/* Delete Button */}
-                          <button
-                            onClick={() => requestDeleteUser(userData)}
-                            className="p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-                            title="Delete User"
-                          >
-                            <Trash2 size={16} />
                           </button>
                         </div>
                       </td>
