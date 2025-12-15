@@ -569,7 +569,7 @@ const LessonDetails = () => {
                       .filter((l) => l._id !== lesson._id)
                       .slice(0, 6)
                       .map((item) => (
-                        <LessonCard lesson={item} />
+                        <LessonCard lesson={item} isPremium={isPremium} />
                       ))}
                   </div>
                 </div>
@@ -587,7 +587,7 @@ const LessonDetails = () => {
                     .filter((l) => l._id !== lesson._id)
                     .slice(0, 6)
                     .map((lesson) => (
-                      <LessonCard lesson={lesson} />
+                      <LessonCard lesson={lesson} isPremium={isPremium} />
                     ))}
                 </div>
               </div>

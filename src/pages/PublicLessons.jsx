@@ -7,6 +7,7 @@ import LessonCard from "../components/Shared/LessonCard";
 import useAxios from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
 import useTheme from "../hooks/useTheme";
+import usePremium from "../hooks/usePremium";
 
 const PublicLessons = () => {
   const { COLORS } = useTheme();
@@ -24,6 +25,7 @@ const PublicLessons = () => {
   const { user } = useAuth();
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(true);
+  const isPremium = usePremium();
   const limit = 6;
 
   const handleSearch = (e) => {
@@ -228,7 +230,7 @@ const PublicLessons = () => {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <LessonCard lesson={lesson} />
+                <LessonCard lesson={lesson} isPremium={isPremium} />
               </motion.div>
             ))}
           </motion.div>

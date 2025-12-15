@@ -5,11 +5,12 @@ import LessonCard from "../Shared/LessonCard";
 import useAuth from "../../hooks/useAuth";
 import Loader from "../Shared/Loader";
 import useTheme from "../../hooks/useTheme";
+import usePremium from "../../hooks/usePremium";
 
 const Featured = () => {
   const { COLORS } = useTheme();
   const { user } = useAuth();
-
+  const isPremium = usePremium();
   const [lessons, setLessons] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -83,7 +84,7 @@ const Featured = () => {
                   visible: { opacity: 1, y: 0 },
                 }}
               >
-                <LessonCard lesson={lesson} />
+                <LessonCard lesson={lesson} isPremium={isPremium} />
               </motion.div>
             ))}
           </motion.div>

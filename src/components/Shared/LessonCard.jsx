@@ -12,9 +12,8 @@ import {
 import useTheme from "../../hooks/useTheme";
 import usePremium from "../../hooks/usePremium";
 
-const LessonCard = ({ lesson }) => {
+const LessonCard = ({ lesson, isPremium }) => {
   const { COLORS } = useTheme();
-  const isPremium = usePremium();
 
   const isLessonPremium =
     lesson?.isPremium === true ||

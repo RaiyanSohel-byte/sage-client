@@ -130,8 +130,8 @@ const ApproveLessons = () => {
             isFeatured: featuredTask === "add to featured" ? "true" : "false",
           });
           Swal.fire({
-            title: "Removed!",
-            text: "You removed the lessons from featured.",
+            title: "Success!",
+            text: "You Changed The Status",
             icon: "success",
             confirmButtonColor: "#1a2f23",
           });

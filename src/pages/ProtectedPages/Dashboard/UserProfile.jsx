@@ -304,7 +304,11 @@ const UserProfile = () => {
               style={{ animationDelay: "0.1s" }}
             >
               {userLessons.map((lesson) => (
-                <LessonCard key={lesson._id} lesson={lesson} />
+                <LessonCard
+                  key={lesson._id}
+                  lesson={lesson}
+                  isPremium={isPremium}
+                />
               ))}
             </div>
           ) : (

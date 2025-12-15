@@ -62,7 +62,7 @@ const MyLessons = () => {
         category: data.category,
         tone: data.tone,
         isPrivate: data.isPrivate ? "true" : "false",
-        isPremiumAccess: data.isPremiumAccess ? "true" : "false",
+        isPremiumAccess: data.accessLevel === "premium" ? "true" : "false",
         image: imagePreview ? imagePreview : "",
       };
 
@@ -103,7 +103,11 @@ const MyLessons = () => {
     setValue("category", lesson.category);
     setValue("tone", lesson.tone);
     setValue("isPrivate", lesson.isPrivate === "true");
-    setValue("isPremiumAccess", lesson.isPremiumAccess === "true");
+    setValue(
+      "accessLevel",
+      lesson.isPremiumAccess === "true" ? "premium" : "free"
+    );
+
     modalRef.current.showModal();
   };
 
@@ -278,7 +282,9 @@ const MyLessons = () => {
                       <td className="p-6">
                         <div className="flex flex-col items-start gap-2">
                           <StatusBadge isPrivate={isPrivate} />
-                          {isPremium && <PremiumBadge />}
+                          {lesson.isPremiumAccess === "true" && (
+                            <PremiumBadge />
+                          )}
                         </div>
                       </td>
 
@@ -459,7 +465,11 @@ const MyLessons = () => {
 
                                 <select
                                   {...register("visibility")}
-                                  defaultValue={lesson.isPrivate}
+                                  defaultValue={
+                                    lesson.isPrivate === "true"
+                                      ? "private"
+                                      : "public"
+                                  }
                                   onChange={(e) => {
                                     const value = e.target.value;
                                     setValue("isPrivate", value === "private");
@@ -483,16 +493,12 @@ const MyLessons = () => {
 
                                 <select
                                   {...register("accessLevel")}
-                                  defaultValue={lesson.isPremiumAccess}
-                                  onChange={(e) => {
-                                    const value = e.target.value;
-                                    setValue(
-                                      "isPremiumAccess",
-                                      value === "premium"
-                                    );
-                                  }}
-                                  className={`w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#4F6F52] outline-none cursor-pointer`}
+                                  value={watch("accessLevel")}
+                                  onChange={(e) =>
+                                    setValue("accessLevel", e.target.value)
+                                  }
                                   disabled={!isPremium}
+                                  className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#4F6F52] outline-none cursor-pointer"
                                 >
                                   <option value="free">
                                     Free — Visible to all users
