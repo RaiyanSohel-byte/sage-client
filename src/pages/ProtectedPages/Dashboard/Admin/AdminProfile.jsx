@@ -17,6 +17,7 @@ import {
 import toast from "react-hot-toast";
 import useAuth from "../../../../hooks/useAuth";
 import useAxios from "../../../../hooks/useAxios";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const AdminProfile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -29,6 +30,7 @@ const AdminProfile = () => {
   });
 
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user, updateUser } = useAuth();
 
   useEffect(() => {
@@ -83,7 +85,7 @@ const AdminProfile = () => {
         photoURL: editFormData.photoURL,
       };
 
-      await axiosInstance.patch(`/users/${profileData._id}`, updatePayload);
+      await axiosSecure.patch(`/users/${profileData._id}`, updatePayload);
 
       setProfileData({ ...profileData, ...updatePayload });
       setIsEditing(false);
