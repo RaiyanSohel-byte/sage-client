@@ -66,7 +66,10 @@ const MyLessons = () => {
         image: imagePreview ? imagePreview : "",
       };
 
-      await axiosSecure.patch(`/lessons/${selectedLesson._id}`, updatedLesson);
+      await axiosSecure.patch(
+        `/lessons/${selectedLesson._id}/edit`,
+        updatedLesson
+      );
       await axiosSecure.patch(
         `/favorites/${selectedLesson._id}`,
         updatedLesson
@@ -375,7 +378,7 @@ const MyLessons = () => {
                                     rows="4"
                                     placeholder="What did experience teach you?"
                                     className="w-full bg-[#F3F5F0] border-2 border-transparent focus:bg-white focus:border-[#D4C5A8] rounded-2xl px-5 py-4 text-base outline-none transition-all shadow-inner resize-none"
-                                    defaultValue={lessons.description}
+                                    defaultValue={lesson.description}
                                   />
                                 </div>
                               </div>

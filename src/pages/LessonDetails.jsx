@@ -655,38 +655,45 @@ const LessonDetails = () => {
                 No comments yet. Be the first to share your thoughts!
               </p>
             ) : (
-              comments.slice(0, 5).map((c, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 p-4 rounded-xl flex gap-3 items-start"
-                >
-                  {/* COMMENTER IMAGE */}
-                  <img
-                    src={
-                      c.commenterImage || "https://i.ibb.co/4pDNDk1/avatar.png"
-                    }
-                    alt={c.commenter}
-                    className="w-10 h-10 rounded-full object-cover border border-white/30"
-                  />
+              [...comments]
+                .sort(
+                  (a, b) =>
+                    new Date(b.commentedAt || 0) - new Date(a.commentedAt || 0)
+                )
+                .slice(0, 5)
+                .map((c, index) => (
+                  <div
+                    key={index}
+                    className="bg-white/10 p-4 rounded-xl flex gap-3 items-start"
+                  >
+                    {/* COMMENTER IMAGE */}
+                    <img
+                      src={
+                        c.commenterImage ||
+                        "https://i.ibb.co/4pDNDk1/avatar.png"
+                      }
+                      alt={c.commenter}
+                      className="w-10 h-10 rounded-full object-cover border border-white/30"
+                    />
 
-                  <div className="flex-1">
-                    {/* NAME */}
-                    <p className="text-sm font-bold text-white">
-                      {c.commenter}
-                    </p>
+                    <div className="flex-1">
+                      {/* NAME */}
+                      <p className="text-sm font-bold text-white">
+                        {c.commenter}
+                      </p>
 
-                    {/* TEXT */}
-                    <p className="text-sm text-white/80 mt-1">{c.text}</p>
+                      {/* TEXT */}
+                      <p className="text-sm text-white/80 mt-1">{c.text}</p>
 
-                    {/* DATE */}
-                    <p className="text-xs text-white/50 mt-1">
-                      {c.commentedAt
-                        ? new Date(c.commentedAt).toLocaleString()
-                        : "Just now"}
-                    </p>
+                      {/* DATE */}
+                      <p className="text-xs text-white/50 mt-1">
+                        {c.commentedAt
+                          ? new Date(c.commentedAt).toLocaleString()
+                          : "Just now"}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))
             )}
           </div>
         </aside>
